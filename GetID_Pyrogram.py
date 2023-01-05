@@ -6,11 +6,11 @@ import os
 
 load_dotenv()
 session_string = os.getenv('SESSION_STRING')
-
 app = Client("my_account", session_string=session_string)
 
 
 async def get_id_by_sticker(set_short_name):
+    await app.stop()
     try:
         sticker_set = await app.invoke(
             query=GetStickerSet(
