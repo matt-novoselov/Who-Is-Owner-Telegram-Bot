@@ -18,8 +18,8 @@ async def get_id_by_sticker(set_short_name):
             )
         )
         return sticker_set.set.id >> 32
-    except:
-        pass
+    except Exception as e:
+        print("We were unable to get id of sticker set, because:",e)
 
 
 async def get_id_by_emoji(custom_emoji_ids):
