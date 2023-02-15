@@ -36,7 +36,8 @@ async def get_sticker_id(message: types.Message):
     user_id = await GetID_Pyrogram.get_id_by_sticker(short_name)
     if user_id is not None:
         await message.reply(
-            f'📧 *ID:* `{user_id}`\n\n[[iOS]] t.me/@id{user_id}',
+            f"📧 *ID:* `{user_id}`\n\n[[iOS]] t.me/@id{user_id} \n[[Android]] "
+            + 'tg://openmessage?user_id='.replace("_", "\\_") + f'{user_id}',
             parse_mode="Markdown")
 
 
@@ -52,8 +53,10 @@ async def get_emoji_id(message: types.Message):
         user_id = await GetID_Pyrogram.get_id_by_emoji(custom_emoji_ids)
         for i in range(len(user_id)):
             if user_id[i] is not None:
-                await message.reply(f'📧 *ID:* `{user_id[i]}`\n\n[[iOS]] t.me/@id{user_id[i]}\n[[Android]] tg://openmessage?user_id={user_id[i]}', parse_mode="Markdown")
-
+                await message.reply(
+                    f"📧 *ID:* `{user_id[i]}`\n\n[[iOS]] t.me/@id{user_id[i]} \n[[Android]] "
+                    + 'tg://openmessage?user_id='.replace("_", "\\_") + f'{user_id[i]}',
+                    parse_mode="Markdown")
 
 async def on_startup(_):
     await GetID_Pyrogram.app.start()
