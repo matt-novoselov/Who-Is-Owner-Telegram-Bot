@@ -32,6 +32,7 @@ async def get_about(message: types.Message):
 
 @dp.message_handler(content_types=["sticker"])
 async def get_sticker_id(message: types.Message):
+    print(f'[v] {message.from_user.id} requested ID for sticker')
     short_name = message.sticker.set_name
     user_id = await GetID_Pyrogram.get_id_by_sticker(short_name)
     if user_id is not None:
@@ -43,6 +44,7 @@ async def get_sticker_id(message: types.Message):
 
 @dp.message_handler(content_types=["text"])
 async def get_emoji_id(message: types.Message):
+    print(f'[v] {message.from_user.id} requested ID for emoji')
     custom_emoji_ids = []
     for i in range(len(message.entities)):
         if message.entities[i].custom_emoji_id is not None:
