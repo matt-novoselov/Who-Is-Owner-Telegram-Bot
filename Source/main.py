@@ -11,7 +11,7 @@ bot = Bot(token=os.getenv('TOKEN'))
 dp = Dispatcher(bot)
 
 # Setup keyboard for the quick actions
-kb = [[types.KeyboardButton(text="🛠️ Contact Support"), types.KeyboardButton(text="❔ About")]]
+kb = [types.KeyboardButton(text="❔ About")]
 keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True, input_field_placeholder="")  # Create keyboard
 
 
@@ -21,12 +21,6 @@ async def send_welcome(message: types.Message):
     await message.answer(
         "💡 Send a sticker or custom emoji in the chat and the creator's ID will be displayed.",
         parse_mode="Markdown", reply_markup=keyboard)
-
-
-# Get support after pressing keyboard
-@dp.message_handler(text="🛠️ Contact Support")
-async def get_support(message: types.Message):
-    await message.reply("🛠️ You can contact support here: @NoveSupportBot")
 
 
 # Get about after pressing keyboard
