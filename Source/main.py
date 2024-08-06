@@ -11,7 +11,7 @@ bot = Bot(token=os.getenv('TOKEN'))
 dp = Dispatcher(bot)
 
 # Setup keyboard for the quick actions
-kb = [types.KeyboardButton(text="❔ About")]
+kb = [[types.KeyboardButton(text="❔ About")]]
 keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True, input_field_placeholder="")  # Create keyboard
 
 
