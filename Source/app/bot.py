@@ -1,14 +1,12 @@
 import GetID_Pyrogram
-from aiogram import Bot, Dispatcher, executor, types
-from dotenv import load_dotenv
-import os
-
-# Load secrets from environment
-load_dotenv()
+from aiogram import Bot, Dispatcher, types, F
+from aiogram.types import ContentType
+from app.config import TELEGRAM_TOKEN
+from aiogram.filters import CommandStart
 
 # Get API bot token
-bot = Bot(token=os.getenv('TOKEN'))
-dp = Dispatcher(bot)
+bot = Bot(token=TELEGRAM_TOKEN)
+dp = Dispatcher()
 
 # Setup keyboard for the quick actions
 kb = [[types.KeyboardButton(text="❔ About")]]
@@ -16,7 +14,7 @@ keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True, input_fi
 
 
 # Run after /start command
-@dp.message_handler(commands=['start'])
+@dp.message(CommandStart())
 async def send_welcome(message: types.Message):
     await message.answer(
         "💡 Send a sticker or custom emoji in the chat and the creator's ID will be displayed.",
@@ -24,7 +22,7 @@ async def send_welcome(message: types.Message):
 
 
 # Get about after pressing keyboard
-@dp.message_handler(text="❔ About")
+@dp.message(F.text == "❔ About")
 async def get_about(message: types.Message):
     await message.reply(
         "💡 Send a sticker or custom emoji in the chat and the creator's ID will be displayed.",
@@ -32,7 +30,7 @@ async def get_about(message: types.Message):
 
 
 # React on messages of type "stickers"
-@dp.message_handler(content_types=["sticker"])
+@dp.message(F.content_type == ContentType.STICKER)
 async def get_sticker_id(message: types.Message):
     print(f'[v] {message.from_user.id} requested ID for sticker')
     # Extract short name
@@ -47,7 +45,7 @@ async def get_sticker_id(message: types.Message):
 
 
 # React on messages of type "text" (process emoji)
-@dp.message_handler(content_types=["text"])
+@dp.message(F.content_type == ContentType.TEXT)
 async def get_emoji_id(message: types.Message):
     print(f'[v] {message.from_user.id} requested ID for emoji')
     # Set up an array for all emojis in message
@@ -65,11 +63,3 @@ async def get_emoji_id(message: types.Message):
                     f"📧 *ID:* `{user_id[i]}`\n\n[[iOS]] t.me/@id{user_id[i]} \n[[Android]] "
                     + 'tg://openmessage?user_id='.replace("_", "\\_") + f'{user_id[i]}',
                     parse_mode="Markdown")
-
-# Run bot
-async def on_startup(_):
-    await GetID_Pyrogram.app.start()
-
-
-if __name__ == '__main__':
-    executor.start_polling(dp, on_startup=on_startup)

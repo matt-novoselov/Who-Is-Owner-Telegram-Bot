@@ -1,4 +1,6 @@
-aiogram==2.23.1
+aiogram==3.12.0
 Pyrogram==2.0.93
-python-dotenv==0.21.0
 TgCrypto==1.2.5
+python-dotenv==1.0.1
+fastapi==0.112.1
+uvicorn==0.30.6

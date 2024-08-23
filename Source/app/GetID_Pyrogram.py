@@ -1,17 +1,11 @@
 from pyrogram import Client
 from pyrogram.raw.functions.messages import GetStickerSet
 from pyrogram.raw.types import InputStickerSetShortName
-from dotenv import load_dotenv
-import os
+from app.config import SESSION_STRING
 
-# Load secrets from environment
-load_dotenv()
-
-# Load session string from environment
-session_string = os.getenv('SESSION_STRING')
 
 # Setup app client
-app = Client("my_account", session_string=session_string)
+app = Client("my_account", session_string=SESSION_STRING)
 
 
 # Function to get User ID form sticker set short name
