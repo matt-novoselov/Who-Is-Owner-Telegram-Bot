@@ -3,7 +3,7 @@ import uvicorn
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.webhook import set_webhook, webhook
-import GetID_Pyrogram
+import app.GetID_Pyrogram as PyrogramEngine
 
 
 # Manage the lifecycle of the app
@@ -11,7 +11,7 @@ import GetID_Pyrogram
 async def lifespan(app: FastAPI):
     # Ensure the correct webhook is set on Telegram server when the app starts
     await set_webhook()
-    await GetID_Pyrogram.app.start()
+    await PyrogramEngine.app.start()
     yield
 
 
@@ -22,7 +22,7 @@ app = FastAPI(lifespan=lifespan)
 app.add_api_route("/", webhook, methods=["POST"])
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.WARNING)
+    logging.basicConfig(level=logging.INFO)
 
     # Run Uvicorn to start a server
     uvicorn.run(app, host="0.0.0.0", port=8080, log_level="error")
