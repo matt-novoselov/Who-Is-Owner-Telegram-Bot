@@ -4,7 +4,6 @@ Source code of Aiogram 3.x and Pyrogram based telegram bot that can get Telegram
 
 ![](https://github.com/matt-novoselov/Who-Is-Owner-Telegram-Bot/blob/905a6c0ca0ae9b9ab9104f7c36dcf30871c046ff/Thumbnail.png)
 
-[![Telegram Bot](https://github.com/matt-novoselov/matt-novoselov/blob/4fddb3cb2c7e952d38b8b09037040af183556a77/Files/telegram_button.svg)](https://t.me/WhoIsOwnerBot)
 
 ## Requirements
 - Python 3.8
